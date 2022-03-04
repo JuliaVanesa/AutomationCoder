@@ -38,7 +38,6 @@ public class DemoBlaze {
         Thread.sleep(2000);
 
         //Creo alert
-
         Alert alert = driver.switchTo().alert();
         String alertmsg = alert.getText();
 
