@@ -15,7 +15,7 @@ public class DemoBlaze {
     private WebDriver driver = DriverFactory.getDriver();
 
     @Test
-    public void categoriesLaptops()  {
+    public void categoriesLaptops() throws InterruptedException{
 
         driver.manage().window().maximize();
         driver.navigate().to(url);
@@ -25,7 +25,7 @@ public class DemoBlaze {
 
 
         // Primer producto
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 7);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img.card-img-top"))).click();
         //driver.findElement().click();
 
@@ -46,13 +46,20 @@ public class DemoBlaze {
 
 
         //Creo alert
-        Alert alert = driver.switchTo().alert();
-        String alertmsg = alert.getText();
-        alert.accept();
+        //Thread.sleep(2000);
 
-        //Comparar texto de alerta
-        Assert.assertEquals("Product added", alertmsg );
+        try {
+
+            WebDriverWait alertWait = new WebDriverWait(driver, 3);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            String alertmsg = alert.getText();
+            Assert.assertEquals("Product added", alertmsg );
+            alert.accept();
+
+        } catch (Exception e) {
+            //
+        }
         driver.quit();
-
     }
 }
