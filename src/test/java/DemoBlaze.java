@@ -14,7 +14,7 @@ public class DemoBlaze {
     private WebDriver driver = DriverFactory.getDriver();
 
     @Test
-    public void categoriesLaptops() throws InterruptedException{
+    public void categoriesLaptops(){
 
         driver.manage().window().maximize();
         driver.navigate().to(url);
@@ -22,11 +22,9 @@ public class DemoBlaze {
         //Busco Laptops
         driver.findElement(By.linkText("Laptops")).click();
 
-
         // Primer producto
         WebDriverWait wait = new WebDriverWait(driver, 7);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("img.card-img-top"))).click();
-
 
         // Laptop y precio
         String laptop;
@@ -35,20 +33,17 @@ public class DemoBlaze {
         precio = driver.findElement((By.cssSelector("h3.price-container"))).getText();
         System.out.println("laptop: " + laptop + "Precio" + precio);
 
-
         //Agregar al carrito
         driver.findElement(By.linkText("Add to cart")).click();
 
         //Alert
         try {
-
             WebDriverWait alertWait = new WebDriverWait(driver, 3);
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             String alertmsg = alert.getText();
             Assert.assertEquals("Product added", alertmsg );
             alert.accept();
-
         } catch (Exception e) {
             System.out.println("No paso");
         }
