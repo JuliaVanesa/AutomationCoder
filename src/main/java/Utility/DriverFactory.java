@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
     public static WebDriver driver;
@@ -23,6 +24,7 @@ public class DriverFactory {
             System.setProperty("webdriver.edge.driver", driverPath + "msedgedriver.exe");
             driver = new EdgeDriver();
         }
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         return driver;
     }
 }
