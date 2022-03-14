@@ -1,25 +1,32 @@
-import Pages.CategoryPage;
-import Pages.MenuPage;
-import Pages.ProductPage;
+import Pages.*;
 import Utility.DriverFactory;
 import Utility.PropertiesFile;
 import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
+
+import java.util.concurrent.TimeUnit;
 
 public class DemoBlaze {
 
     private String url = PropertiesFile.getProperty("url");
     private WebDriver driver = DriverFactory.getDriver();
 
-    @Test
-    public void categoriesLaptops(){
-
+    @BeforeTest
+    public void openBrowser() {
         driver.manage().window().maximize();
         driver.navigate().to(url);
+    }
+
+    @Test
+    public void categoriesLaptops(){
 
         //Busco Laptops
         CategoryPage homePage;
@@ -35,8 +42,8 @@ public class DemoBlaze {
         String laptop;
         String precio;
         laptop = productPage.getLaptop();
-        precio = productPage.getPrice();
-        System.out.println("laptop: " + laptop + "Precio" + precio);
+        precio = igualarPrecio(productPage.getPrice());
+        System.out.println("laptop: " + laptop + "Precio: " + precio);
 
         //Agregar al carrito
         productPage.clickAddToCart();
@@ -53,6 +60,40 @@ public class DemoBlaze {
         MenuPage menuPage;
         menuPage = new MenuPage(driver);
         menuPage.clickCart();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+
+        //Asercion en titulo y precio
+        CartPage cartPage;
+        cartPage = new CartPage(driver);
+
+        String titulo = cartPage.CartTitle();
+        String precio2 = cartPage.CartPrice();
+
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(titulo, laptop);
+        softAssert.assertEquals(precio2, precio);
+        System.out.println("titulo: " + titulo  + "precio: " + precio2 );
+        softAssert.assertAll();
+
+        //Click en place Order
+        cartPage.clickPlaceOrder();
+
+        //Completar Formulario
+        InformationPage informationPage;
+        informationPage = new InformationPage(driver);
+
+        informationPage.completarForm("julia", "Argentina", "Cordoba", "visa", "marzo", "2022");
+        informationPage.clickPurchase();
+    }
+
+    @AfterTest
+    public void closeBrowser() {
         //driver.quit();
+    }
+
+    // Igualar el precio del detalle con el precio que traigo de la tabla
+        public String igualarPrecio (String precio) {
+        int finalPrecio = precio.indexOf("*")-1;
+        return (precio.substring(1, finalPrecio));
     }
 }
