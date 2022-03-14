@@ -1,4 +1,4 @@
-import Pages.HomePage;
+import Pages.CategoryPage;
 import Pages.MenuPage;
 import Pages.ProductPage;
 import Utility.DriverFactory;
@@ -22,12 +22,11 @@ public class DemoBlaze {
         driver.navigate().to(url);
 
         //Busco Laptops
-        HomePage homePage;
-        homePage = new HomePage(driver);
+        CategoryPage homePage;
+        homePage = new CategoryPage(driver);
         homePage.ClickLaptop();
 
         // Primer producto
-        WebDriverWait wait = new WebDriverWait(driver, 3);
         homePage.clickFirstLaptop();
 
         // Laptop y precio
@@ -43,22 +42,17 @@ public class DemoBlaze {
         productPage.clickAddToCart();
 
         //Alert
-
-        try {
-            WebDriverWait alertWait = new WebDriverWait(driver, 3);
-            alertWait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            String alertmsg = alert.getText();
-            Assert.assertEquals("Product added", alertmsg );
-            alert.accept();
-        } catch (Exception e) {
-            System.out.println("No paso");
-        }
+        WebDriverWait alertWait = new WebDriverWait(driver, 3);
+        alertWait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        String alertmsg = alert.getText();
+        Assert.assertEquals("Product added", alertmsg );
+        alert.accept();
 
         //Ingresar en Cart
         MenuPage menuPage;
         menuPage = new MenuPage(driver);
         menuPage.clickCart();
-        driver.quit();
+        //driver.quit();
     }
 }
