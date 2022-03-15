@@ -43,7 +43,7 @@ public class DemoBlaze {
         String precio;
         laptop = productPage.getLaptop();
         precio = igualarPrecio(productPage.getPrice());
-        System.out.println("laptop: " + laptop + "Precio: " + precio);
+        System.out.println("laptop: " + laptop + "\nPrecio: " + precio);
 
         //Agregar al carrito
         productPage.clickAddToCart();
@@ -60,7 +60,6 @@ public class DemoBlaze {
         MenuPage menuPage;
         menuPage = new MenuPage(driver);
         menuPage.clickCart();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
 
         //Asercion en titulo y precio
         CartPage cartPage;
@@ -72,8 +71,7 @@ public class DemoBlaze {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(titulo, laptop);
         softAssert.assertEquals(precio2, precio);
-        System.out.println("titulo: " + titulo  + "precio: " + precio2 );
-
+        System.out.println("titulo: " + titulo  + "\nprecio: " + precio2 );
 
         //Click en place Order
         cartPage.clickPlaceOrder();
@@ -93,7 +91,8 @@ public class DemoBlaze {
         String textExpected = "Thank you for your purchase!";
 
         softAssert.assertEquals(textConfirm, textExpected);
-        System.out.println("Resultado actual: " + textConfirm + "Resultado esperado: " + textExpected);
+        System.out.println("-----------------------------");
+        System.out.println("Resultado actual: " + textConfirm  + "\nResultado esperado: " + textExpected);
         softAssert.assertAll();
     }
 
