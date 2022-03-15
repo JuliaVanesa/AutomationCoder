@@ -73,7 +73,7 @@ public class DemoBlaze {
         softAssert.assertEquals(titulo, laptop);
         softAssert.assertEquals(precio2, precio);
         System.out.println("titulo: " + titulo  + "precio: " + precio2 );
-        softAssert.assertAll();
+
 
         //Click en place Order
         cartPage.clickPlaceOrder();
@@ -84,11 +84,22 @@ public class DemoBlaze {
 
         informationPage.completarForm("julia", "Argentina", "Cordoba", "visa", "marzo", "2022");
         informationPage.clickPurchase();
+
+        //Asercion del texto
+        ModalConfirmPage modalConfirmPage;
+        modalConfirmPage = new ModalConfirmPage(driver);
+
+        String textConfirm = modalConfirmPage.textConfirm();
+        String textExpected = "Thank you for your purchase!";
+
+        softAssert.assertEquals(textConfirm, textExpected);
+        System.out.println("Resultado actual: " + textConfirm + "Resultado esperado: " + textExpected);
+        softAssert.assertAll();
     }
 
     @AfterTest
     public void closeBrowser() {
-        //driver.quit();
+        driver.quit();
     }
 
     // Igualar el precio del detalle con el precio que traigo de la tabla
