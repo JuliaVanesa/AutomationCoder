@@ -13,8 +13,6 @@ public class CategoryPage {
     WebElement laptopsCategory;
     WebDriver driver;
 
-    @FindBy (css = "img.card-img-top")
-    WebElement cardLaptop;
 
     
     public CategoryPage(WebDriver driver) {
@@ -28,8 +26,5 @@ public class CategoryPage {
 
     }
 
-    public void clickFirstLaptop() {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.elementToBeClickable(cardLaptop)).click();
-    }
+
 }

@@ -32,11 +32,13 @@ public class DemoBlaze {
         homePage.ClickLaptop();
 
         // Primer producto
-        homePage.clickFirstLaptop();
-
-        // Laptop y precio
         ProductPage productPage;
         productPage = new ProductPage(driver);
+
+
+        productPage.clickFirstLaptop();
+
+        // Laptop y precio
         String laptop;
         String precio;
         laptop = productPage.getLaptop();
