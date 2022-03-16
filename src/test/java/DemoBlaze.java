@@ -27,9 +27,9 @@ public class DemoBlaze {
     public void categoriesLaptops(){
 
         //Busco Laptops
-        CategoryPage homePage;
-        homePage = new CategoryPage(driver);
-        homePage.ClickLaptop();
+        CategoryPage categoryPage;
+        categoryPage = new CategoryPage(driver);
+        categoryPage.ClickLaptop();
 
         // Primer producto
         ProductPage productPage;
