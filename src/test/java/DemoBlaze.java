@@ -1,6 +1,7 @@
 import Pages.*;
 import Utility.DriverFactory;
 import Utility.PropertiesFile;
+import Utility.Utilidades;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
@@ -42,7 +43,7 @@ public class DemoBlaze {
         String laptop;
         String precio;
         laptop = productPage.getLaptop();
-        precio = igualarPrecio(productPage.getPrice());
+        precio = Utilidades.igualarPrecio (productPage.getPrice());
         System.out.println("laptop: " + laptop + "\nPrecio: " + precio);
 
         //Agregar al carrito
@@ -102,8 +103,8 @@ public class DemoBlaze {
     }
 
     // Igualar el precio del detalle con el precio que traigo de la tabla
-        public String igualarPrecio (String precio) {
-        int finalPrecio = precio.indexOf("*")-1;
-        return (precio.substring(1, finalPrecio));
-    }
+        //public String igualarPrecio (String precio) {
+        //int finalPrecio = precio.indexOf("*")-1;
+        //return (precio.substring(1, finalPrecio));
+    //}
 }
