@@ -8,8 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductPage {
-    @FindBy (css = "img.card-img-top")
-    WebElement cardLaptop;
+
     WebDriver driver;
 
     @FindBy (css ="h2.name")
@@ -25,11 +24,6 @@ public class ProductPage {
     public ProductPage (WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    public void clickFirstLaptop() {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.elementToBeClickable(cardLaptop)).click();
     }
 
     public String getLaptop () {
