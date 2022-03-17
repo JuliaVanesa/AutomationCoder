@@ -102,9 +102,4 @@ public class DemoBlaze {
         driver.quit();
     }
 
-    // Igualar el precio del detalle con el precio que traigo de la tabla
-        //public String igualarPrecio (String precio) {
-        //int finalPrecio = precio.indexOf("*")-1;
-        //return (precio.substring(1, finalPrecio));
-    //}
 }
