@@ -8,19 +8,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class MenuPage {
+public class MenuPage extends BasePage{
     @FindBy(linkText = "Cart")
     WebElement getCart;
-    WebDriver driver;
 
-    public MenuPage (WebDriver driver) {
-        this.driver = driver;
+
+    public MenuPage () {
+        this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
     public void clickCart() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.elementToBeClickable(getCart)).click();
+        Click(getCart);
     }
 
 }

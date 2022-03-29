@@ -1,3 +1,4 @@
+import Data.DataProviderClass;
 import Pages.*;
 import Utility.DriverFactory;
 import Utility.PropertiesFile;
@@ -15,31 +16,32 @@ import org.testng.asserts.SoftAssert;
 
 public class DemoBlaze {
 
-    private String url = PropertiesFile.getProperty("url");
-    private WebDriver driver = DriverFactory.getDriver();
+
+
 
     @BeforeTest
     public void openBrowser() {
-        driver.manage().window().maximize();
-        driver.navigate().to(url);
+        HomePage homePage = new HomePage();
+        homePage.navegarUrl();
+
     }
 
-    @Test
-    public void categoriesLaptops(){
+    @Test (dataProvider = "DemoBlazeTest", dataProviderClass = DataProviderClass.class)
+    public void categoriesLaptops(String name, String country, String city, String card, String month, String year) throws InterruptedException {
 
         //Busco Laptops
         CategoryPage categoryPage;
-        categoryPage = new CategoryPage(driver);
+        categoryPage = new CategoryPage();
         categoryPage.ClickLaptop();
 
         // Primer producto
         ProductsPage productsPage;
-        productsPage = new ProductsPage(driver);
-        productsPage.clickFirstLaptop();
+        productsPage = new ProductsPage();
+        productsPage.ClickProductInPriceRanger(780, 890);
 
         // Laptop y precio
         ProductPage productPage;
-        productPage = new ProductPage(driver);
+        productPage = new ProductPage();
         String laptop;
         String precio;
         laptop = productPage.getLaptop();
@@ -50,26 +52,26 @@ public class DemoBlaze {
         productPage.clickAddToCart();
 
         //Alert
-        WebDriverWait alertWait = new WebDriverWait(driver, 3);
+        WebDriverWait alertWait = new WebDriverWait(DriverFactory.getDriver(), 3);
         alertWait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
+        Alert alert = DriverFactory.getDriver().switchTo().alert();
         String alertmsg = alert.getText();
         Assert.assertEquals("Product added", alertmsg );
         alert.accept();
 
         //Ingresar en Cart
         MenuPage menuPage;
-        menuPage = new MenuPage(driver);
+        menuPage = new MenuPage();
         menuPage.clickCart();
 
         //Asercion en titulo y precio
         CartPage cartPage;
-        cartPage = new CartPage(driver);
+        cartPage = new CartPage();
 
         String titulo = cartPage.CartTitle();
         String precio2 = cartPage.CartPrice();
 
-        SoftAssert softAssert = new SoftAssert();
+       SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(titulo, laptop);
         softAssert.assertEquals(precio2, precio);
         System.out.println("titulo: " + titulo  + "\nprecio: " + precio2 );
@@ -79,32 +81,33 @@ public class DemoBlaze {
 
         //Completar Formulario
         InformationPage informationPage;
-        informationPage = new InformationPage(driver);
+        informationPage = new InformationPage();
 
-        informationPage.completarForm("julia", "Argentina", "Cordoba", "visa", "marzo", "2022");
+        informationPage.completarForm(name, country, city, card, month,year);
         informationPage.clickPurchase();
 
         //Asercion del texto
         ModalConfirmPage modalConfirmPage;
-        modalConfirmPage = new ModalConfirmPage(driver);
+        modalConfirmPage = new ModalConfirmPage();
 
         String textConfirm = modalConfirmPage.textConfirm();
         String textExpected = "Thank you for your purchase!";
 
-        softAssert.assertEquals(textConfirm, textExpected);
+        Thread.sleep(3000);
+        modalConfirmPage.confirmOk();
+        //softAssert.assertEquals(textConfirm, textExpected);
         System.out.println("-----------------------------");
         System.out.println("Resultado actual: " + textConfirm  + "\nResultado esperado: " + textExpected);
+
         softAssert.assertAll();
+
+
     }
 
     @AfterTest
     public void closeBrowser() {
-        driver.quit();
+        HomePage homePage = new HomePage();
+        homePage.quit();
     }
 
-    // Igualar el precio del detalle con el precio que traigo de la tabla
-        //public String igualarPrecio (String precio) {
-        //int finalPrecio = precio.indexOf("*")-1;
-        //return (precio.substring(1, finalPrecio));
-    //}
 }

@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,9 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProductPage {
+public class ProductPage extends BasePage {
 
-    WebDriver driver;
 
     @FindBy (css ="h2.name")
     WebElement nameLaptop;
@@ -21,22 +21,23 @@ public class ProductPage {
     @FindBy (linkText = "Add to cart")
     WebElement addToCart;
 
-    public ProductPage (WebDriver driver) {
-        this.driver = driver;
+    public ProductPage () {
+        this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }
 
     public String getLaptop () {
-       return nameLaptop.getText();
+       return GetText(nameLaptop);
     }
     public String getPrice() {
-        return priceLaptop.getText();
+        return GetText(priceLaptop);
     }
 
 
     public void clickAddToCart() {
-        addToCart.click();
+        Click(addToCart);
     }
+
 }
 
 

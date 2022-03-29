@@ -1,21 +1,25 @@
 package Pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ModalConfirmPage {
-    @FindBy(xpath = "//h2[normalize-space()='Thank you for your purchase!']")
+public class ModalConfirmPage extends BasePage{
+    @FindBy(xpath = "//button[text()='Purchase']")
     WebElement msjConfirm;
-    WebDriver driver;
 
-    public ModalConfirmPage(WebDriver driver) {
-        this.driver = driver;
+
+    @FindBy (xpath = "//button[contains(text(),'OK')]")
+    WebElement buttonOK;
+
+    public ModalConfirmPage() {
+        this.driver = getDriver();
         PageFactory.initElements(this.driver, this);
     }
 
     public String textConfirm() {
-        return msjConfirm.getText();
+        return GetText(msjConfirm);
     }
+
+    public void confirmOk() { Click(buttonOK);}
 }

@@ -1,13 +1,12 @@
 package Pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class InformationPage {
+public class InformationPage extends BasePage {
     @FindBy(id="name")
     WebElement nameInput;
 
@@ -29,26 +28,26 @@ public class InformationPage {
     @FindBy(xpath = "//button[normalize-space()='Purchase']")
     WebElement buttonPurchase;
 
-    WebDriver driver;
 
 
-    public InformationPage(WebDriver driver) {
-        this.driver = driver;
+
+    public InformationPage() {
+        this.driver = getDriver();
         PageFactory.initElements(this.driver, this);
     }
 
     public void completarForm (String name, String country, String city, String card, String month, String year) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(nameInput));
-        nameInput.sendKeys(name);
-        countryInput.sendKeys(country);
-        cityInput.sendKeys(city);
-        cardInput.sendKeys(card);
-        monthInput.sendKeys(month);
-        yearInput.sendKeys(year);
+        SendKeys(nameInput, name);
+        SendKeys(countryInput, country);
+        SendKeys(cityInput, city);
+        SendKeys(cardInput, card);
+        SendKeys(monthInput, month);
+        SendKeys(yearInput, year);
 
     }
     public void clickPurchase() {
-        buttonPurchase.click();
+        Click(buttonPurchase);
     }
 }

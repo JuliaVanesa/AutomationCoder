@@ -6,7 +6,7 @@
       <class name="DemoBlaze">
         <methods>
           <include name="closeBrowser"/>
-          <include name="categoriesLaptops"/>
+          <include name="categoriesLaptops" invocation-numbers="1"/>
           <include name="openBrowser"/>
         </methods>
       </class> <!-- DemoBlaze -->
