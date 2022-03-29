@@ -1,22 +1,20 @@
 package Pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
-public class CartPage extends BasePage{
+public class CartPage extends BasePage {
     @FindBy(xpath = "//tr[@class='success']//td[2]")
     WebElement getTitle;
 
-    @FindBy (xpath = "//tr[@class='success']//td[3]")
+    @FindBy(xpath = "//tr[@class='success']//td[3]")
     WebElement getPrice;
 
     @FindBy(xpath = "//button[normalize-space()='Place Order']")
     WebElement getPlaceOrder;
 
-    public CartPage () {
+    public CartPage() {
         this.driver = getDriver();
         PageFactory.initElements(driver, this);
     }

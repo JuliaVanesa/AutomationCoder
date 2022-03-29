@@ -16,7 +16,7 @@ public class BasePage {
         this.wait = DriverFactory.getWait();
     }
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() {
         return driver;
     }
 

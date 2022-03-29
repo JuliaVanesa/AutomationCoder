@@ -7,36 +7,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InformationPage extends BasePage {
-    @FindBy(id="name")
+    @FindBy(id = "name")
     WebElement nameInput;
 
-    @FindBy(id="country")
+    @FindBy(id = "country")
     WebElement countryInput;
 
-    @FindBy(id="city")
+    @FindBy(id = "city")
     WebElement cityInput;
 
-    @FindBy(id="card")
+    @FindBy(id = "card")
     WebElement cardInput;
 
-    @FindBy(id="month")
+    @FindBy(id = "month")
     WebElement monthInput;
 
-    @FindBy(id="year")
+    @FindBy(id = "year")
     WebElement yearInput;
 
     @FindBy(xpath = "//button[normalize-space()='Purchase']")
     WebElement buttonPurchase;
-
-
-
 
     public InformationPage() {
         this.driver = getDriver();
         PageFactory.initElements(this.driver, this);
     }
 
-    public void completarForm (String name, String country, String city, String card, String month, String year) {
+    public void completarForm(String name, String country, String city, String card, String month, String year) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(nameInput));
         SendKeys(nameInput, name);
@@ -45,8 +42,8 @@ public class InformationPage extends BasePage {
         SendKeys(cardInput, card);
         SendKeys(monthInput, month);
         SendKeys(yearInput, year);
-
     }
+
     public void clickPurchase() {
         Click(buttonPurchase);
     }
